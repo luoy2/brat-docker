@@ -9,7 +9,11 @@ ARG USERS_CFG=users.json
 RUN apt-get update
 RUN apt-get install -y curl vim sudo wget rsync
 RUN apt-get install -y apache2
-RUN apt-get install -y python
+RUN apt-get update \
+  && apt-get install -y python3-pip python3-dev \
+  && cd /usr/local/bin \
+  && ln -s /usr/bin/python3 python \
+  && pip3 install --upgrade pip
 RUN apt-get install -y supervisor
 RUN apt-get clean
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
